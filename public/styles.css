@@ -276,8 +276,8 @@ body[data-theme="dark"] .theme-icon-moon {
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  min-height: calc(100vh - 132px);
-  padding: 96px 0 28px;
+  min-height: auto;
+  padding: 72px 0 18px;
 }
 
 .hero-copy {
@@ -428,8 +428,8 @@ body[data-theme="dark"] .live-pill {
 
 .split-section {
   gap: 18px;
-  margin-top: 52px;
-  margin-bottom: 28px;
+  margin-top: 18px;
+  margin-bottom: 18px;
 }
 
 .about-card,
@@ -452,7 +452,11 @@ body[data-theme="dark"] .live-pill {
 }
 
 .content-block {
-  margin-top: 28px;
+  margin-top: 24px;
+}
+
+#projects {
+  margin-top: 160px;
 }
 
 .block-head {
@@ -791,8 +795,8 @@ body[data-theme="dark"] .featured-card {
   }
 
   .hero {
-    min-height: calc(100svh - 128px);
-    padding: 56px 0 12px;
+    min-height: auto;
+    padding: 48px 0 10px;
     gap: 22px;
   }
 
@@ -806,8 +810,13 @@ body[data-theme="dark"] .featured-card {
   }
 
   .split-section {
-    margin-top: 34px;
+    margin-top: 14px;
+    margin-bottom: 14px;
     gap: 16px;
+  }
+
+  #projects {
+    margin-top: 112px;
   }
 
   .timeline-meta {
@@ -874,7 +883,7 @@ body[data-theme="dark"] .featured-card {
 
   .hero {
     min-height: auto;
-    padding: 42px 0 6px;
+    padding: 34px 0 4px;
     gap: 18px;
   }
 
@@ -908,7 +917,12 @@ body[data-theme="dark"] .featured-card {
   }
 
   .split-section {
-    margin-top: 26px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #projects {
+    margin-top: 72px;
   }
 
   .block-head {

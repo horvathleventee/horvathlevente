@@ -231,7 +231,7 @@ function setupAmbientGlyphs() {
     return;
   }
 
-  const glyphs = ["0x", "{}", "[]", "<>", "tx", "01", "//", "#", "=>", "/", "Ξ", "₿", "⟠", "web3", "rpc", "defi"];
+  const glyphs = ["0x", "{}", "[]", "<>", "tx", "01", "//", "#", "=>", "/", "\u039E", "\u20BF", "\u27E0", "web3", "rpc", "defi"];
   const positions = [
     { x: "5vw", y: "10vh" },
     { x: "8vw", y: "18vh" },
@@ -269,7 +269,7 @@ function setupAmbientGlyphs() {
     { x: "50vw", y: "86vh" }
   ];
 
-  const accentGlyphs = new Set(["Ξ", "₿", "⟠"]);
+  const accentGlyphs = new Set(["\u039E", "\u20BF", "\u27E0"]);
 
   ambientGlyphsEl.innerHTML = positions
     .map((position, index) => {
@@ -413,3 +413,4 @@ setupAmbientGlyphs();
 applyTheme(currentTheme);
 renderTexts();
 loadGithubActivity();
+
