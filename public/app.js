@@ -363,34 +363,54 @@ async function loadGithubActivity() {
   summaryEl.textContent = translations[currentLang].loading;
 
   try {
-    const [profileResponse, reposResponse] = await Promise.all([
-      fetch(profileUrl),
-      fetch(reposUrl)
-    ]);
+    const response = await fetch("/api/github-activity");
 
-    if (!profileResponse.ok || !reposResponse.ok) {
-      throw new Error("GitHub API error");
+    if (!response.ok) {
+      throw new Error("Activity API error");
     }
 
-    const profile = await profileResponse.json();
-    const repos = await reposResponse.json();
-    const publicRepos = repos.filter(
-      (repo) => !repo.fork && repo.owner?.login?.toLowerCase() === githubUsername.toLowerCase()
-    );
-    const repoCommits = await Promise.all(publicRepos.map((repo) => loadRepoCommits(repo)));
+    const activity = await response.json();
 
     githubState = {
-      repos: publicRepos.length || profile.public_repos || 0,
-      followers: profile.followers || 0,
-      commits: extractCommits(repoCommits)
+      repos: activity.repos || 0,
+      followers: activity.followers || 0,
+      commits: Array.isArray(activity.commits) ? activity.commits : []
     };
 
     renderSummary();
     renderCommits();
+    return;
   } catch (error) {
-    summaryEl.textContent = translations[currentLang].error;
-    githubState.commits = [];
-    renderCommits();
+    try {
+      const [profileResponse, reposResponse] = await Promise.all([
+        fetch(profileUrl),
+        fetch(reposUrl)
+      ]);
+
+      if (!profileResponse.ok || !reposResponse.ok) {
+        throw new Error("GitHub API error");
+      }
+
+      const profile = await profileResponse.json();
+      const repos = await reposResponse.json();
+      const publicRepos = repos.filter(
+        (repo) => !repo.fork && repo.owner?.login?.toLowerCase() === githubUsername.toLowerCase()
+      );
+      const repoCommits = await Promise.all(publicRepos.map((repo) => loadRepoCommits(repo)));
+
+      githubState = {
+        repos: publicRepos.length || profile.public_repos || 0,
+        followers: profile.followers || 0,
+        commits: extractCommits(repoCommits)
+      };
+
+      renderSummary();
+      renderCommits();
+    } catch (fallbackError) {
+      summaryEl.textContent = translations[currentLang].error;
+      githubState.commits = [];
+      renderCommits();
+    }
   }
 }
 
@@ -413,4 +433,5 @@ setupAmbientGlyphs();
 applyTheme(currentTheme);
 renderTexts();
 loadGithubActivity();
+
 
