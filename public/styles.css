@@ -838,21 +838,21 @@ body[data-theme="dark"] .featured-card {
   .site-shell {
     width: min(100% - 16px, 1180px);
     padding-top: 10px;
+    padding-bottom: 28px;
   }
 
   .navbar {
     position: static;
-    gap: 12px;
-    padding: 12px 14px;
+    gap: 10px;
+    padding: 10px 12px;
     border-radius: 18px;
   }
 
   .brand {
-    font-size: 0.96rem;
+    font-size: 0.94rem;
   }
 
   .nav-links,
-  .nav-actions,
   .block-head,
   .commit-line,
   .footer-bar,
@@ -862,39 +862,74 @@ body[data-theme="dark"] .featured-card {
   }
 
   .nav-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
-    flex-wrap: wrap;
-    gap: 10px 14px;
+    gap: 8px 14px;
+  }
+
+  .nav-links a {
+    font-size: 0.95rem;
   }
 
   .nav-actions {
     width: 100%;
-    gap: 10px;
-  }
-
-  .github-link {
-    width: auto;
-    padding: 0 12px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .lang-switch {
-    order: -1;
+    order: 0;
+  }
+
+  .lang-btn,
+  .theme-toggle {
+    padding: 6px 9px;
+  }
+
+  .theme-toggle,
+  .icon-link {
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+  }
+
+  .github-link {
+    width: 36px;
+    padding: 0;
+  }
+
+  .github-link span {
+    display: none;
   }
 
   .hero {
     min-height: auto;
-    padding: 34px 0 4px;
-    gap: 18px;
+    padding: 28px 0 2px;
+    gap: 16px;
   }
 
   .hero-title {
-    font-size: clamp(2.8rem, 18vw, 5rem);
-    margin-bottom: 16px;
+    max-width: none;
+    font-size: clamp(2.45rem, 16vw, 4.3rem);
+    margin-bottom: 12px;
+    gap: 2px;
   }
 
-  .hero-text {
-    font-size: 0.98rem;
-    line-height: 1.75;
+  .hero-kicker {
+    font-size: 0.75rem;
+  }
+
+  .hero-text,
+  .hero-note,
+  .contact-intro,
+  .about-card p,
+  .skills-note,
+  .timeline-list,
+  .commit-message {
+    font-size: 0.95rem;
+    line-height: 1.68;
   }
 
   .side-card,
@@ -912,8 +947,9 @@ body[data-theme="dark"] .featured-card {
   .about-card,
   .stat-card,
   .timeline-content,
-  .contact-card {
-    padding: 18px;
+  .contact-card,
+  .commits-block {
+    padding: 16px;
   }
 
   .split-section {
@@ -922,11 +958,29 @@ body[data-theme="dark"] .featured-card {
   }
 
   #projects {
-    margin-top: 72px;
+    margin-top: 64px;
   }
 
   .block-head {
     gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .project-card {
+    padding: 16px;
+  }
+
+  .contact-grid {
+    gap: 14px;
+  }
+
+  .contact-card strong {
+    word-break: break-word;
+  }
+
+  .footer-bar {
+    gap: 12px;
+    padding: 16px;
   }
 
   .footer-status {
@@ -935,10 +989,13 @@ body[data-theme="dark"] .featured-card {
 
   .commit-date {
     white-space: normal;
+    font-size: 0.8rem;
   }
 
   .skill-item {
     flex-basis: 100%;
+    min-width: 0;
   }
 }
+
 
