@@ -1,18 +1,12 @@
 ﻿const githubUsername = "horvathleventee";
-const siteRepo = {
-  owner: "horvathleventee",
-  name: "horvathlevente"
-};
-
-const eventsUrl = `https://api.github.com/users/${githubUsername}/events/public`;
 const profileUrl = `https://api.github.com/users/${githubUsername}`;
+const reposUrl = `https://api.github.com/users/${githubUsername}/repos?per_page=100&sort=pushed`;
 
 const summaryEl = document.getElementById("github-summary");
 const commitListEl = document.getElementById("commit-list");
 const githubProfileLinkEl = document.getElementById("github-profile-link");
 const langButtons = document.querySelectorAll(".lang-btn");
 const themeToggleEl = document.getElementById("theme-toggle");
-const root = document.documentElement;
 const body = document.body;
 const ambientGlyphsEl = document.getElementById("ambient-glyphs");
 
@@ -91,11 +85,11 @@ const translations = {
     footerStatus: "elérhető modern webes projektekhez",
     loading: "Betöltés...",
     summary: (repos, followers, commits) =>
-      `${repos} publikus repository, ${followers} követő, ${commits} megjelenített friss commit.`,
-    emptyTitle: "Még nincs megjeleníthető publikus push esemény.",
-    emptyText: "Amint érkezik publikus aktivitás, itt automatikusan megjelenik.",
+      `${repos} publikus repository, ${followers} követő, ${commits} megjelenített friss commit a publikus projektjeidből.`,
+    emptyTitle: "Még nincs megjeleníthető commit a publikus projektjeidből.",
+    emptyText: "Amint elérhető publikus repository commit, itt automatikusan megjelenik.",
     error:
-      "A GitHub aktivitás most nem tölthető be. Ellenőrizd a kapcsolatot vagy a publikus profil elérhetőségét."
+      "A GitHub commitok most nem tölthetők be. Ellenőrizd a kapcsolatot vagy a publikus profil elérhetőségét."
   },
   en: {
     navAbout: "about",
@@ -171,11 +165,11 @@ const translations = {
     footerStatus: "available for building modern web experiences",
     loading: "Loading...",
     summary: (repos, followers, commits) =>
-      `${repos} public repositories, ${followers} followers, ${commits} recent commits shown.`,
-    emptyTitle: "No public push events to display yet.",
-    emptyText: "As soon as new public activity appears, it will show up here automatically.",
+      `${repos} public repositories, ${followers} followers, ${commits} recent commits shown from your public projects.`,
+    emptyTitle: "No commits from your public projects are available yet.",
+    emptyText: "As soon as public repository commits are available, they will appear here automatically.",
     error:
-      "GitHub activity is unavailable right now. Please check the connection or public profile visibility."
+      "GitHub commits are unavailable right now. Please check the connection or public profile visibility."
   }
 };
 
@@ -205,18 +199,31 @@ function truncate(text, maxLength) {
   return `${text.slice(0, maxLength - 1)}...`;
 }
 
-function extractCommits(events) {
-  return events
-    .filter((event) => event.type === "PushEvent" && Array.isArray(event.payload?.commits))
-    .flatMap((event) =>
-      event.payload.commits.map((commit) => ({
-        repo: event.repo.name,
-        message: commit.message,
-        url: commit.url.replace("api.github.com/repos", "github.com").replace("/commits/", "/commit/"),
-        createdAt: event.created_at
-      }))
-    )
+function extractCommits(repoCommits) {
+  return repoCommits
+    .flat()
+    .filter((commit) => commit && commit.createdAt)
+    .sort((left, right) => new Date(right.createdAt) - new Date(left.createdAt))
     .slice(0, 7);
+}
+
+async function loadRepoCommits(repo) {
+  const commitsResponse = await fetch(
+    `https://api.github.com/repos/${repo.owner.login}/${repo.name}/commits?per_page=3`
+  );
+
+  if (!commitsResponse.ok) {
+    return [];
+  }
+
+  const commits = await commitsResponse.json();
+
+  return commits.map((commit) => ({
+    repo: repo.name,
+    message: commit.commit?.message || "Commit",
+    url: commit.html_url,
+    createdAt: commit.commit?.author?.date || commit.commit?.committer?.date || repo.pushed_at
+  }));
 }
 
 function setupAmbientGlyphs() {
@@ -269,8 +276,8 @@ function setupAmbientGlyphs() {
       const glyph = glyphs[index % glyphs.length];
       const duration = 11 + (index % 6) * 2;
       const delay = index * -0.9;
-      const floatX = ((index % 2 === 0 ? 1 : -1) * (8 + (index % 5) * 3));
-      const floatY = ((index % 3 === 0 ? -1 : 1) * (5 + (index % 4) * 2));
+      const floatX = (index % 2 === 0 ? 1 : -1) * (8 + (index % 5) * 3);
+      const floatY = (index % 3 === 0 ? -1 : 1) * (5 + (index % 4) * 2);
       const tilt = `${(index % 2 === 0 ? 1 : -1) * (2 + (index % 4))}deg`;
       const extraClass = accentGlyphs.has(glyph) ? " ambient-glyph-mark" : "";
 
@@ -305,7 +312,6 @@ function renderTexts() {
     const key = node.dataset.i18n;
     node.textContent = t[key];
   });
-
 
   langButtons.forEach((button) => {
     button.classList.toggle("is-active", button.dataset.lang === currentLang);
@@ -357,22 +363,26 @@ async function loadGithubActivity() {
   summaryEl.textContent = translations[currentLang].loading;
 
   try {
-    const [profileResponse, eventsResponse] = await Promise.all([
+    const [profileResponse, reposResponse] = await Promise.all([
       fetch(profileUrl),
-      fetch(eventsUrl)
+      fetch(reposUrl)
     ]);
 
-    if (!profileResponse.ok || !eventsResponse.ok) {
+    if (!profileResponse.ok || !reposResponse.ok) {
       throw new Error("GitHub API error");
     }
 
     const profile = await profileResponse.json();
-    const events = await eventsResponse.json();
+    const repos = await reposResponse.json();
+    const publicRepos = repos.filter(
+      (repo) => !repo.fork && repo.owner?.login?.toLowerCase() === githubUsername.toLowerCase()
+    );
+    const repoCommits = await Promise.all(publicRepos.map((repo) => loadRepoCommits(repo)));
 
     githubState = {
-      repos: profile.public_repos || 0,
+      repos: publicRepos.length || profile.public_repos || 0,
       followers: profile.followers || 0,
-      commits: extractCommits(events)
+      commits: extractCommits(repoCommits)
     };
 
     renderSummary();
@@ -399,11 +409,7 @@ if (themeToggleEl) {
   });
 }
 
-
 setupAmbientGlyphs();
 applyTheme(currentTheme);
 renderTexts();
 loadGithubActivity();
-
-
-
