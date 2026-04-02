@@ -1,0 +1,10 @@
+{
+  "name": "horvathlevente-cv",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Node.js alapú, egyoldalas CV/portfolio oldal GitHub aktivitással.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
