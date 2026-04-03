@@ -47,7 +47,7 @@ const translations = {
     projectsTitle: "Kiemelt repository-k",
     projectsHint: "GitHub projektek",
     openSource: "[ open source ]",
-    projectOneTitle: "KebPro",
+    projectOneTitle: "Kebpro",
     projectOneText:
       "GitHub repository a Kebpro projekthez, technikai megoldásokkal és fejlesztési előzményekkel.",
     projectTwoTitle: "Szakdolgozat",
@@ -127,9 +127,9 @@ const translations = {
     projectsTitle: "Featured repositories",
     projectsHint: "GitHub projects",
     openSource: "[ open source ]",
-    projectOneTitle: "KebPro",
+    projectOneTitle: "Kebpro",
     projectOneText:
-      "GitHub repository for the KebPro project with technical solutions and development history.",
+      "GitHub repository for the Kebpro project with technical solutions and development history.",
     projectTwoTitle: "Thesis",
     projectTwoText:
       "Repository connected to the thesis project with research and development materials.",
