@@ -35,10 +35,15 @@
 
       <article class="cv-page">
         <header class="cv-header">
-          <div>
-            <p class="hero-kicker">curriculum vitae</p>
-            <h1>Horváth Levente</h1>
-            <p class="cv-role" data-cv-i18n="role">Junior Szoftverfejlesztő</p>
+          <div class="cv-identity">
+            <div class="cv-photo-placeholder" aria-label="Profilkép helye">
+              <span>HL</span>
+            </div>
+            <div>
+              <p class="hero-kicker">curriculum vitae</p>
+              <h1>Horváth Levente</h1>
+              <p class="cv-role" data-cv-i18n="role">Junior Szoftverfejlesztő</p>
+            </div>
           </div>
           <div class="cv-contact">
             <a href="mailto:horvathlevente04@gmail.com">horvathlevente04@gmail.com</a>
@@ -112,6 +117,16 @@
         </section>
 
         <section class="cv-section">
+          <h2 data-cv-i18n="strengthsTitle">Erősségek</h2>
+          <ul class="cv-strength-list">
+            <li data-cv-i18n="strengthOne">Nyitott vagyok új technológiákra, és erős bennem a folyamatos tanulás iránti igény.</li>
+            <li data-cv-i18n="strengthTwo">Önállóan is szeretek feladatokat végigvinni, de csapatban is szívesen dolgozom.</li>
+            <li data-cv-i18n="strengthThree">Fontos számomra az átlátható Git alapú munkafolyamat és a tiszta, követhető megvalósítás.</li>
+            <li data-cv-i18n="strengthFour">Jó kommunikációs készséggel rendelkezem magyarul és angolul is.</li>
+          </ul>
+        </section>
+
+        <section class="cv-section">
           <h2 data-cv-i18n="languagesTitle">Nyelvek</h2>
           <div class="cv-entry">
             <div class="cv-entry-head">
@@ -127,15 +142,15 @@
           <div class="cv-project-list">
             <a href="https://github.com/horvathleventee/kebpro" target="_blank" rel="noreferrer">
               <strong>Kebpro</strong>
-              <span data-cv-i18n="projectOneText">GitHub repository technikai megoldásokkal és fejlesztési előzményekkel.</span>
+              <span data-cv-i18n="projectOneText">Magyar gyros gyár weboldalának teljes felújítása modern funkciókkal: álláshirdetés és jelentkezés, rendelés, ajánlatkérés és frissített webes felület.</span>
             </a>
             <a href="https://github.com/horvathleventee/Szakdoga" target="_blank" rel="noreferrer">
-              <strong data-cv-i18n="projectTwoTitle">Szakdolgozat</strong>
-              <span data-cv-i18n="projectTwoText">Kutatási és fejlesztési anyagok a BSc záróprojekthez.</span>
+              <strong data-cv-i18n="projectTwoTitle">CAC Registry & Marketplace</strong>
+              <span data-cv-i18n="projectTwoText">Szakdolgozati projekt Ethereum-alapú karbonkredit-nyilvántartó és kereskedelmi rendszer prototípusához, Solidity okosszerződésekkel, Next.js dApp-pal, IPFS dokumentumtárolással és több piactéri modellel.</span>
             </a>
             <a href="https://github.com/horvathleventee/OkinawaPublicTransport" target="_blank" rel="noreferrer">
               <strong>Okinawa Public Transport</strong>
-              <span data-cv-i18n="projectThreeText">Publikus repository projektkövetéssel és verziózással.</span>
+              <span data-cv-i18n="projectThreeText">Gamifikált közösségi közlekedési jutalmazó platform Next.js frontenddel, Node.js / Express backenddel, MySQL adattárolással, avatar rendszerrel, közösségi funkciókkal és lokális ERC-20 token flow-val.</span>
             </a>
           </div>
         </section>
@@ -168,14 +183,19 @@
           schoolTitle: "KRK Szilády Áron Gimnázium és Kollégium",
           schoolPlace: "Kiskunhalas",
           techTitle: "Technológiák",
+          strengthsTitle: "Erősségek",
+          strengthOne: "Nyitott vagyok új technológiákra, és erős bennem a folyamatos tanulás iránti igény.",
+          strengthTwo: "Önállóan is szeretek feladatokat végigvinni, de csapatban is szívesen dolgozom.",
+          strengthThree: "Fontos számomra az átlátható Git alapú munkafolyamat és a tiszta, követhető megvalósítás.",
+          strengthFour: "Jó kommunikációs készséggel rendelkezem magyarul és angolul is.",
           languagesTitle: "Nyelvek",
           englishTitle: "Angol",
           englishText: "B2-es nyelvvizsga, jó angol kommunikációs készség.",
           projectsTitle: "Kiemelt projektek",
-          projectOneText: "GitHub repository technikai megoldásokkal és fejlesztési előzményekkel.",
-          projectTwoTitle: "Szakdolgozat",
-          projectTwoText: "Kutatási és fejlesztési anyagok a BSc záróprojekthez.",
-          projectThreeText: "Publikus repository projektkövetéssel és verziózással."
+          projectOneText: "Magyar gyros gyár weboldalának teljes felújítása modern funkciókkal: álláshirdetés és jelentkezés, rendelés, ajánlatkérés és frissített webes felület.",
+          projectTwoTitle: "CAC Registry & Marketplace",
+          projectTwoText: "Szakdolgozati projekt Ethereum-alapú karbonkredit-nyilvántartó és kereskedelmi rendszer prototípusához, Solidity okosszerződésekkel, Next.js dApp-pal, IPFS dokumentumtárolással és több piactéri modellel.",
+          projectThreeText: "Gamifikált közösségi közlekedési jutalmazó platform Next.js frontenddel, Node.js / Express backenddel, MySQL adattárolással, avatar rendszerrel, közösségi funkciókkal és lokális ERC-20 token flow-val."
         },
         en: {
           portfolioLink: "Portfolio",
@@ -201,14 +221,19 @@
           schoolTitle: "KRK Szilády Áron Grammar School and Dormitory",
           schoolPlace: "Kiskunhalas",
           techTitle: "Technologies",
+          strengthsTitle: "Strengths",
+          strengthOne: "I am open to new technologies and strongly motivated to keep learning.",
+          strengthTwo: "I enjoy taking ownership of tasks independently, while also working well in teams.",
+          strengthThree: "I value clear Git-based workflows and clean, easy-to-follow implementation.",
+          strengthFour: "I have good communication skills in both Hungarian and English.",
           languagesTitle: "Languages",
           englishTitle: "English",
           englishText: "B2 language certificate with good English communication skills.",
           projectsTitle: "Featured projects",
-          projectOneText: "GitHub repository with technical solutions and development history.",
-          projectTwoTitle: "Thesis",
-          projectTwoText: "Research and development materials for the BSc final project.",
-          projectThreeText: "Public repository with project tracking and versioning."
+          projectOneText: "Full redesign of a Hungarian gyros factory website with modern functions including job postings and applications, ordering, quote requests, and a refreshed web interface.",
+          projectTwoTitle: "CAC Registry & Marketplace",
+          projectTwoText: "Thesis project for an Ethereum-based carbon credit registry and marketplace prototype, with Solidity smart contracts, a Next.js dApp, IPFS document storage, and multiple marketplace models.",
+          projectThreeText: "Gamified public transport rewards platform with a Next.js frontend, Node.js / Express backend, MySQL persistence, avatar system, social features, and a local ERC-20 token flow."
         }
       };
 
