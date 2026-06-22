@@ -41,7 +41,12 @@ function sendFile(res, filePath) {
 }
 
 const server = http.createServer((req, res) => {
-  const urlPath = req.url === "/" ? "/index.html" : req.url;
+  const requestPath = req.url.split("?")[0];
+  const routes = {
+    "/": "/index.html",
+    "/cv": "/cv.html"
+  };
+  const urlPath = routes[requestPath] || requestPath;
   const safePath = path.normalize(urlPath).replace(/^(\.\.[/\\])+/, "");
   const filePath = path.join(PUBLIC_DIR, safePath);
 
