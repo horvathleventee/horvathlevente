@@ -1199,6 +1199,8 @@ body[data-theme="dark"] .contact-icon {
 }
 
 .cv-photo-placeholder {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1215,6 +1217,18 @@ body[data-theme="dark"] .contact-icon {
   font-weight: 800;
   letter-spacing: 0.08em;
   box-shadow: inset 0 0 0 8px rgba(255, 255, 255, 0.16);
+}
+
+.cv-photo-placeholder img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cv-photo-placeholder img:not([hidden]) + span {
+  opacity: 0;
 }
 
 .cv-header h1 {
